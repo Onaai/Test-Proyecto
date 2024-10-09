@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Peliculas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/estilos.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand">Peliculas</a>
+        </div>
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="home">HOME</a></li>
+            <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="nav-item"><a class="nav-link" href="#" onclick="showModal('addPeliculaModal')">ALTA PELICULA</a></li>
+            <li th:if="${#authorization.expression('hasRole(''SOCIO'')')}" class="nav-item"><a class="nav-link" href="mis-ordenes">MIS ÓRDENES</a></li>
+        </ul>
+        <form action="/busqueda" method="post" class="d-flex">
+            <input id="busqueda" name="busqueda" class="form-control" type="text" placeholder="Buscar película...">
+            <button class="btn search-btn" type="submit"><i class="search-icon fas fa-search"></i></button>
+        </form>
+        <div class="cart-container ms-3" th:if="${#authorization.expression('hasRole(''SOCIO'')')}">
+            <i class="fas fa-shopping-cart cart-icon" id="cartIcon"></i>
+            <span class="cart-count badge bg-danger" id="cartCount">0</span>
+        </div>
+        <button class="btn btn-outline-danger ms-2" onclick="cerrarSesion()">Cerrar sesión</button>
+    </div>
+</nav>
+
+<h1 class="titulo-pagina" th:text="'Resultados encontrados para: ' + ${busqueda}"></h1>
+
+<div class="contenedor-peliculas">
+    <div th:each="pelicula : ${peliculas}" class="contenedor-imagen">
+        <img th:src="${pelicula.img}" alt="Imagen de la Película">
+        <div class="informacion-pelicula">
+            <div class="informacion-texto">
+                <h2 th:text="${pelicula.titulo}"></h2>
+            </div>
+            <div class="informacion-detalles">
+                <p th:text="${#strings.arrayJoin(pelicula.generos, ', ')}"></p>
+                <div class="botones">
+                    <button th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:attr="onclick='openModifyPelicula(\'' + ${pelicula.id} + '\')'" class="btn eye-btn" type="button"><i class="fas fa-eye"></i></button>
+                    <button th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:attr="onclick='deletePelicula(\'' + ${pelicula.id} + '\')'" class="btn delete-btn" type="button"><i class="fas fa-trash"></i></button>
+                    <button th:if="${#authorization.expression('hasRole(''SOCIO'')')}" th:attr="onclick='addPeliculatoCart(\'' + ${pelicula.id} + '\')'" class="btn cart-btn" type="button"><i class="fas fa-shopping-cart"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal fade" id="addPeliculaModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Agregar película</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addPeliculaForm">
+                    <div class="form-group">
+                        <label for="addTitulo">Titulo</label>
+                        <input type="text" id="addTitulo" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="addSitio">Dirección del sitio</label>
+                        <input type="text" id="addSitio" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="addImg">Dirección de la imagen</label>
+                        <input type="text" id="addImg" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="addGeneros">Géneros</label>
+                        <select id="addGeneros" class="form-control" multiple required>
+                            <option th:each="genero:${generos}" th:value="${genero}" th:text="${genero}"></option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn save-btn">Agregar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modifyPeliculaModal" tabindex="-1" role="dialog" aria-labelledby="modifyModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modifyModalLabel">Modificar película</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="modifyPeliculaForm">
+                    <div class="form-group">
+                        <label for="modifyTitulo">Titulo</label>
+                        <input type="text" id="modifyTitulo" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="modifySitio">Dirección del sitio</label>
+                        <input type="text" id="modifySitio" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="modifyImg">Dirección de la imagen</label>
+                        <input type="text" id="modifyImg" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="modifyGeneros">Géneros</label>
+                        <select id="modifyGeneros" class="form-control" multiple required>
+                            <option th:each="genero:${generos}" th:value="${genero}" th:text="${genero}"></option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn save-btn">Guardar cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/login.js"></script>
+<script src="/js/home.js"></script>
+<script src="/js/modals.js"></script>
+
+</body>
+</html>

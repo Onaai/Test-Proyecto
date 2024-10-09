@@ -1,0 +1,407 @@
+{
+	"info": {
+		"_postman_id": "416cc246-4297-4403-a63f-de848f9cdc81",
+		"name": "integrador",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34609382"
+	},
+	"item": [
+		{
+			"name": "ordenes",
+			"item": [
+				{
+					"name": "addOrden",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1NPQ0lPIl0sInN1YiI6ImZnaXJvbnRlM0BnbWFpbC5jb20iLCJpYXQiOjE3MjE4NDQ0NjYsImV4cCI6MTcyMTg0NTkwNn0.iS0sv86gckQnjxVqFWIr79cdOdcmMdt7TDncYdWgiWc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"fgironte3@gmail.com\",\r\n    \"cuponCodigo\": \"B\",\r\n    \"peliculas\": [1, 6, 11]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orden/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orden",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get ordenes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNzIxNjkxNjI5LCJleHAiOjE3MjE2OTMwNjl9.y52-vwQT8CLE16g7Qge_SuJZ0zrnN18S6isbHUOZy-Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"fgironte3@gmail.com\"\r\n} //este body pide las ordenes de un usuario\r\n\r\n// el mismo método, pasándole un body vacio, trae todas las ordenes  ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orden/get-ordenes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orden",
+								"get-ordenes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "aprobar orden",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNzIxODQ0MzgzLCJleHAiOjE3MjE4NDU4MjN9.Vw7EQk5e_7y6oPRYE3urp0LYdXbom0afdLABWMt_-mA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orden/aprobar-orden?id=45",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orden",
+								"aprobar-orden"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "45"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "desaprobar orden",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNzIxODQ0MzgzLCJleHAiOjE3MjE4NDU4MjN9.Vw7EQk5e_7y6oPRYE3urp0LYdXbom0afdLABWMt_-mA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orden/desaprobar-orden?id=45",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orden",
+								"desaprobar-orden"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "45"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin mail\",\r\n    \"name\": \"Nombre USER\",\r\n    \"lastname\": \"lastname\",\r\n    \"password\": \"12345\",\r\n    \"adminCheck\": true,\r\n    \"adminCode\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "pelicula",
+			"item": [
+				{
+					"name": "deletePelicula",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNzIxODQ0ODgwLCJleHAiOjE3MjE4NDYzMjB9.2qp2I67Nm2uzMVzSwo1A3vdUyX7pXqz1dpOGVC94bjs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"23\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/pelicula/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pelicula",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addPelicula",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNzIxODQ0ODgwLCJleHAiOjE3MjE4NDYzMjB9.2qp2I67Nm2uzMVzSwo1A3vdUyX7pXqz1dpOGVC94bjs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"titulo pelicula\",\r\n    \"img\": \"img_url\",\r\n    \"url\": \"sitio_url\",\r\n    \"precio\": \"100\",\r\n    \"generos\": [\"Drama\", \"Acción\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/pelicula/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pelicula",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "modifyPelicula",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNzIxODQ0ODgwLCJleHAiOjE3MjE4NDYzMjB9.2qp2I67Nm2uzMVzSwo1A3vdUyX7pXqz1dpOGVC94bjs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"24\",\r\n    \"titulo\": \"titulo\",\r\n    \"img\": \"img_url\",\r\n    \"url\": \"sitio_url\",\r\n    \"precio\": \"100\",\r\n    \"generos\": [\"Drama\", \"Acción\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/pelicula/modify",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pelicula",
+								"modify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPelicula",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX0FETUlOIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNzIxODQ0ODgwLCJleHAiOjE3MjE4NDYzMjB9.2qp2I67Nm2uzMVzSwo1A3vdUyX7pXqz1dpOGVC94bjs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/pelicula/get-pelicula",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pelicula",
+								"get-pelicula"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
