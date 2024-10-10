@@ -33,6 +33,7 @@
 
 <div class="container">
     <div class="row">
+        <!--
         <div th:each="pelicula : ${peliculas}" class="col-md-4 mb-4">
             <div class="card shadow-sm h-100" style="background-color: white;">
                 <img th:src="${pelicula.img}" class="card-img-top" alt="Imagen de la Película">
@@ -48,7 +49,29 @@
                     </div>
                 </div>
             </div>
+        </div>-->
+        <div th:each="pelicula : ${peliculas}" class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100" style="background-color: white;">
+                <a th:href="@{/pelicula/detalle/{id}(id=${pelicula.id})}">
+                    <img th:src="${pelicula.img}" class="card-img-top" alt="Imagen de la Película">
+                </a>
+                <div class="card-body d-flex flex-column">
+                    <a th:href="@{/pelicula/detalle/{id}(id=${pelicula.id})}">
+                        <h5 class="card-title" th:text="${pelicula.titulo}"></h5>
+                    </a>
+                    <p class="card-text text-muted" th:text="'$' + ${pelicula.precio}"></p>
+                    <p class="card-text" th:text="${#strings.arrayJoin(pelicula.generos, ', ')}"></p>
+                    <div class="mt-auto d-flex justify-content-between">
+                        <button th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:attr="onclick='openModifyPelicula(\'' + ${pelicula.id} + '\')'" class="btn btn-primary"><i class="fas fa-edit"></i></button>
+                        <button th:if="${#authorization.expression('hasRole(''SOCIO'')')}" th:attr="onclick='openDetailPelicula(\'' + ${pelicula.id} + '\')'" class="btn btn-info"><i class="fas fa-eye"></i></button>
+                        <button th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:attr="onclick='deletePelicula(\'' + ${pelicula.id} + '\')'" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                        <button th:if="${#authorization.expression('hasRole(''SOCIO'')')}" th:attr="onclick='addPeliculatoCart(\'' + ${pelicula.id} + '\')'" class="btn btn-success"><i class="fas fa-shopping-cart"></i></button>
+                    </div>
+                </div>
+            </div>
         </div>
+
+
     </div>
 </div>
 
