@@ -105,3 +105,26 @@ img {
 .container p {
     margin-bottom: 20px;
 }
+
+/* Estilos para la sección de comentarios */
+h4 {
+    color: #ECF0F1;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+div hr {
+    border: 1px solid #7F8C8D;
+}
+
+div p {
+    color: #ECF0F1;
+}
+/*Boton watchlist*/
+.btn-leido-verde {
+    background-color: #27AE60; /* Verde */
+}
+
+.btn-leido-rojo {
+    background-color: #E74C3C; /* Rojo */
+}

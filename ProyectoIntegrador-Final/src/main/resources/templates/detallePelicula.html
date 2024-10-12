@@ -5,10 +5,7 @@
     <title th:text="${pelicula.titulo}"></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css">
-    <<link rel="stylesheet" href="/css/detallePelicula.css">
-
-
-
+    <link rel="stylesheet" href="/css/detallePelicula.css">
 </head>
 <body>
 
@@ -25,13 +22,26 @@
             <!-- Agregar un formulario para los comentarios -->
             <h4>Deja un comentario:</h4>
             <form action="/pelicula/comentar" method="post">
-                <input type="hidden" name="peliculaId" th:value="${pelicula.id}">
+                <input type="hidden" name="libroId" th:value="${pelicula.id}">
                 <textarea name="comentario" class="form-control mb-2" placeholder="Escribe tu comentario aquí"></textarea>
                 <button type="submit" class="btn btn-primary">Enviar comentario</button>
             </form>
 
+
+            <!-- Mostrar comentarios -->
+            <h4>Comentarios:</h4>
+            <div th:if="${comentarios.isEmpty()}">
+                <p>No hay comentarios aún. ¡Sé el primero en comentar!</p>
+            </div>
+            <div th:each="comentario : ${comentarios}">
+                <p><strong th:text="${comentario.user.username}"></strong> dijo:</p>
+                <p th:text="${comentario.texto}"></p>
+                <hr>
+            </div>
+
             <!-- Formulario para puntuar con estrellas -->
-            <h4>Puntúa la película:</h4>
+            <!-- Formulario para puntuar con estrellas -->
+            <h4>Puntúa el libro:</h4>
             <form action="/pelicula/puntuar" method="post">
                 <input type="hidden" name="peliculaId" th:value="${pelicula.id}">
                 <div class="form-group">
@@ -43,15 +53,12 @@
                         <i class="fas fa-star" data-value="4"></i>
                         <i class="fas fa-star" data-value="5"></i>
                     </div>
-                    <input type="hidden" id="puntuacion" name="puntuacion" value="0">
+                    <input type="hidden" id="puntuacion" name="puntuacion" th:value="${puntuacion}">
                 </div>
                 <button type="submit" class="btn btn-success">Enviar puntuación</button>
             </form>
 
-            <!-- Botón para marcar como "Leído" -->
-            <button id="btnLeido" class="btn btn-leido" onclick="addToWatchlist(${pelicula.id})">
-                <i class="fas fa-eye"></i> Leído
-            </button>
+
         </div>
     </div>
 </div>

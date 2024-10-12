@@ -16,6 +16,67 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `comentario`
+--
+
+DROP TABLE IF EXISTS `comentario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `comentario` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `fecha_comentario` datetime(6) DEFAULT NULL,
+  `texto` varchar(500) NOT NULL,
+  `libro_id` bigint NOT NULL,
+  `user_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKdqwq6t891ll3co9uixpadetbg` (`libro_id`),
+  KEY `FKsn53lyh11hoc4hlwohd0jh6e8` (`user_id`),
+  CONSTRAINT `FKdqwq6t891ll3co9uixpadetbg` FOREIGN KEY (`libro_id`) REFERENCES `peliculas` (`id`),
+  CONSTRAINT `FKsn53lyh11hoc4hlwohd0jh6e8` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `comentario`
+--
+
+LOCK TABLES `comentario` WRITE;
+/*!40000 ALTER TABLE `comentario` DISABLE KEYS */;
+INSERT INTO `comentario` VALUES (1,'2024-10-10 18:13:31.306216','a',26,602),(2,'2024-10-10 18:13:43.407103','el pepe',26,602),(3,'2024-10-10 18:17:09.048097','boca la concha de tu madre\r\n',26,602),(4,'2024-10-10 18:18:36.125090','RIVER ESTAS EN LA B PUTOOO\r\n',26,852),(5,'2024-10-11 22:54:04.239361','11/10 alexby maricon',26,602),(6,'2024-10-12 11:03:39.358838','Bueno, a mi me gustó mucho, muy lindo libro  (No leí)',25,602);
+/*!40000 ALTER TABLE `comentario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `comentarios`
+--
+
+DROP TABLE IF EXISTS `comentarios`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `comentarios` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `comentario` text NOT NULL,
+  `fecha` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `user_id` int NOT NULL,
+  `pelicula_id` bigint NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `pelicula_id` (`pelicula_id`),
+  CONSTRAINT `comentarios_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `comentarios_ibfk_2` FOREIGN KEY (`pelicula_id`) REFERENCES `peliculas` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `comentarios`
+--
+
+LOCK TABLES `comentarios` WRITE;
+/*!40000 ALTER TABLE `comentarios` DISABLE KEYS */;
+/*!40000 ALTER TABLE `comentarios` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `cupon`
 --
 
@@ -110,7 +171,7 @@ CREATE TABLE `ordenes` (
   CONSTRAINT `FK7246bw3aw2fryg5o7kxoyroaq` FOREIGN KEY (`cupon_id`) REFERENCES `cupon` (`id`),
   CONSTRAINT `FK8ilc3n5v0vmqp9ln0m46cikep` FOREIGN KEY (`socio_id`) REFERENCES `users` (`id`),
   CONSTRAINT `FKdyyaumyqludsjdk68ishtpohd` FOREIGN KEY (`estado_id`) REFERENCES `estado_orden` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -119,7 +180,7 @@ CREATE TABLE `ordenes` (
 
 LOCK TABLES `ordenes` WRITE;
 /*!40000 ALTER TABLE `ordenes` DISABLE KEYS */;
-INSERT INTO `ordenes` VALUES (45,'2024-09-02 23:00:42.651489',2000,11,1,602),(46,'2024-09-02 23:05:26.881312',4000,NULL,2,602),(47,'2024-09-03 14:25:52.657596',4000,NULL,1,602),(48,'2024-09-03 14:26:10.238698',4000,NULL,1,602),(49,'2024-09-03 14:28:34.480484',350,NULL,1,602),(50,'2024-09-03 14:41:22.069862',2100,13,1,602),(51,'2024-09-03 15:20:04.913101',1750,13,1,602),(52,'2024-09-03 15:39:31.155419',2750,11,1,602);
+INSERT INTO `ordenes` VALUES (45,'2024-09-02 23:00:42.651489',2000,11,1,602),(46,'2024-09-02 23:05:26.881312',4000,NULL,2,602),(47,'2024-09-03 14:25:52.657596',4000,NULL,1,602),(48,'2024-09-03 14:26:10.238698',4000,NULL,1,602),(49,'2024-09-03 14:28:34.480484',350,NULL,1,602),(50,'2024-09-03 14:41:22.069862',2100,13,1,602),(51,'2024-09-03 15:20:04.913101',1750,13,1,602),(52,'2024-09-03 15:39:31.155419',2750,11,1,602),(53,'2024-10-06 14:58:57.543133',720,NULL,1,602),(54,'2024-10-06 15:04:50.776117',720,NULL,1,602),(55,'2024-10-06 15:05:31.062841',4000,NULL,1,602);
 /*!40000 ALTER TABLE `ordenes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -146,7 +207,6 @@ CREATE TABLE `order_peliculas` (
 
 LOCK TABLES `order_peliculas` WRITE;
 /*!40000 ALTER TABLE `order_peliculas` DISABLE KEYS */;
-INSERT INTO `order_peliculas` VALUES (49,6),(45,9),(46,9),(47,9),(48,9),(52,9),(51,10),(50,18),(52,22);
 /*!40000 ALTER TABLE `order_peliculas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -164,7 +224,7 @@ CREATE TABLE `peliculas` (
   `url` varchar(255) DEFAULT NULL,
   `precio` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -173,7 +233,7 @@ CREATE TABLE `peliculas` (
 
 LOCK TABLES `peliculas` WRITE;
 /*!40000 ALTER TABLE `peliculas` DISABLE KEYS */;
-INSERT INTO `peliculas` VALUES (6,'https://a.ltrbxd.com/resized/sm/upload/fe/jp/49/l9/eDiexVN4nO3ZdDZCDMiJOX5fQ5r-0-1000-0-1500-crop.jpg?v=ef7fa718a0','2001: A Space Odyssey','https://letterboxd.com/film/2001-a-space-odyssey/',720),(9,'https://a.ltrbxd.com/resized/sm/upload/7s/m2/bw/d0/caoYMcjUamGoBVy65i1AHJBvdzw-0-1000-0-1500-crop.jpg?v=88d9d6cce4','The Shining','https://letterboxd.com/film/the-shining/',4000),(10,'https://a.ltrbxd.com/resized/sm/upload/0f/r6/bn/w7/x2JQCgLjieWOwvImeGtLmuNgsrq-0-1000-0-1500-crop.jpg?v=9c250ee969','Barry Lyndon','https://letterboxd.com/film/barry-lyndon/',2500),(12,'https://a.ltrbxd.com/resized/film-poster/5/1/5/7/8/51578-psycho-0-1000-0-1500-crop.jpg?v=7353fb3952','Psycho','https://letterboxd.com/film/psycho/',2000),(15,'https://a.ltrbxd.com/resized/sm/upload/bn/hr/ki/ay/eP2pJudgGzUlo2kZuh0tF1MInsb-0-1000-0-1500-crop.jpg?v=907dc282ae','Amadeus','https://letterboxd.com/film/amadeus/',1500),(16,'https://a.ltrbxd.com/resized/film-poster/3/6/1/9/2/36192-come-and-see-0-1000-0-1500-crop.jpg?v=741b0269bb','Come and See','https://letterboxd.com/film/come-and-see/',1500),(17,'https://a.ltrbxd.com/resized/film-poster/5/1/4/4/4/51444-pulp-fiction-0-1000-0-1500-crop.jpg?v=dee19a8077','Pulp Fiction','https://letterboxd.com/film/pulp-fiction/',1300),(18,'https://a.ltrbxd.com/resized/film-poster/4/5/4/0/9/45409-shutter-island-0-1000-0-1500-crop.jpg?v=85dd4c38e3','Shutter Island','https://letterboxd.com/film/shutter-island/',3000),(19,'https://a.ltrbxd.com/resized/film-poster/5/2/5/1/6/52516-django-unchained-0-1000-0-1500-crop.jpg?v=f02aed63a3','Django Unchained','https://letterboxd.com/film/django-unchained/',2000),(21,'https://a.ltrbxd.com/resized/sm/upload/au/nb/i6/lq/fsoTLnUXEUTNuVCBxAJMY0HPPd-0-1000-0-1500-crop.jpg?v=16789732be','Her','https://letterboxd.com/film/her/',3000),(22,'https://a.ltrbxd.com/resized/film-poster/8/6/1/1/4/86114-the-wolf-of-wall-street-0-1000-0-1500-crop.jpg?v=9fd1891260','The Wolf of Wall Street','https://letterboxd.com/film/the-wolf-of-wall-street/',1500),(23,'https://a.ltrbxd.com/resized/film-poster/2/0/7/2/2/4/207224-the-revenant-0-1000-0-1500-crop.jpg?v=f51b30a589','The Revenant','https://letterboxd.com/film/the-revenant-2015/',2270),(24,'https://a.ltrbxd.com/resized/sm/upload/lv/4b/f2/zj/muym4jTjdLx7E6as09d1wlC3sOB-0-1000-0-1500-crop.jpg?v=b4d5a4aa37','Requiem For a Dream','https://letterboxd.com/film/requiem-for-a-dream/',3200);
+INSERT INTO `peliculas` VALUES (25,'https://www.loqueleo.com/mx/uploads/2018/07/resized/800_portada-quijote-web.jpg','Don Quijote de la Mancha','https://libros.com/don-quijote',1200),(26,'https://s3.amazonaws.com/adg-bucket/1984-george-orwell/3423-medium.jpg','1984','https://libros.com/1984',1500),(27,'https://mir-s3-cdn-cf.behance.net/project_modules/hd/cc8a8d34051824.56c7461a62ad2.jpg','Moby Dick','https://libros.com/moby-dick',1300),(28,'https://www.penguinlibros.com/ar/1598663/crimen-y-castigo.jpg','Crimen y Castigo','https://libros.com/crimen-y-castigo',1400),(29,'https://www.penguinlibros.com/ar/1602771-large_default/el-extranjero.webp','El extranjero','https://libros.com/orgullo-y-prejuicio',1100),(30,'https://images.cdn3.buscalibre.com/fit-in/360x360/be/f5/bef58803f001add87e2f0c33ca9fa87f.jpg','El Principito','https://libros.com/el-principito',1000),(31,'https://www.penguinlibros.com/ar/1598456/iliada-los-mejores-clasicos.jpg','La Ilíada','https://libros.com/la-iliada',2000),(32,'https://acdn.mitiendanube.com/stores/001/029/689/products/fahrenheit-4511-1419fa9f0258bc1abe16873684185644-640-0.jpg','Fahrenheit 451','https://libros.com/fahrenheit-451',1600),(33,'https://cdn.prod.website-files.com/6034d7d1f3e0f52c50b2adee/625453f925449ca10afedf7c_6034d7d1f3e0f5292db2b291_La-metamorfosis-y-otros-relatos-franz-kafka-editorial-alma.jpeg','La Metamorfosis','https://libros.com/la-metamorfosis',900),(34,'https://cdn.prod.website-files.com/6034d7d1f3e0f52c50b2adee/625452e64ed610baadce9101_6034d7d1f3e0f561eab2b16e_Anna-karenina-lev-tolstoi-editorial-alma.jpeg','Anna Karenina','https://libros.com/la-metamorfosis',1000);
 /*!40000 ALTER TABLE `peliculas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -200,8 +260,38 @@ CREATE TABLE `peliculas_genero` (
 
 LOCK TABLES `peliculas_genero` WRITE;
 /*!40000 ALTER TABLE `peliculas_genero` DISABLE KEYS */;
-INSERT INTO `peliculas_genero` VALUES (6,4),(6,1),(9,4),(9,7),(10,1),(12,4),(12,7),(15,1),(15,8),(16,6),(16,3),(17,1),(17,3),(19,5),(19,1),(18,6),(18,4),(21,1),(21,4),(24,7),(24,1),(22,1),(22,5),(23,1),(23,3);
+INSERT INTO `peliculas_genero` VALUES (25,2),(25,5),(26,4),(27,2),(28,1),(29,1),(30,5),(31,2),(32,4),(33,6);
 /*!40000 ALTER TABLE `peliculas_genero` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `puntuacion`
+--
+
+DROP TABLE IF EXISTS `puntuacion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `puntuacion` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `libro_id` bigint DEFAULT NULL,
+  `user_id` int DEFAULT NULL,
+  `puntuacion` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `libro_id` (`libro_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `puntuacion_ibfk_1` FOREIGN KEY (`libro_id`) REFERENCES `peliculas` (`id`),
+  CONSTRAINT `puntuacion_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `puntuacion`
+--
+
+LOCK TABLES `puntuacion` WRITE;
+/*!40000 ALTER TABLE `puntuacion` DISABLE KEYS */;
+INSERT INTO `puntuacion` VALUES (4,26,602,4),(6,27,602,5),(7,25,602,4);
+/*!40000 ALTER TABLE `puntuacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -252,7 +342,7 @@ CREATE TABLE `user_roles` (
 
 LOCK TABLES `user_roles` WRITE;
 /*!40000 ALTER TABLE `user_roles` DISABLE KEYS */;
-INSERT INTO `user_roles` VALUES (602,1),(653,1),(702,1),(703,1),(654,2),(802,2);
+INSERT INTO `user_roles` VALUES (602,1),(653,1),(702,1),(703,1),(852,1),(654,2),(802,2);
 /*!40000 ALTER TABLE `user_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -282,7 +372,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (602,'onai','$2a$10$o/Ub590NRrP65OLqlDs8fuoaRm48aLe/8Fz0sM0Mi7H1pa.XxZTW2','campos','emi',_binary '','2024-08-05 18:28:06.179254'),(653,'zozo','$2a$10$v/MUAqeBp0qq1rUDSnUPQupKvFJAa/C4rfuqEmt1wQXOQ9SiQjDZq','s','e',_binary '','2024-08-05 18:36:52.417025'),(654,'onai1','$2a$10$G7urH1MFX5BAzk4G9N93TujgU5Sc8Z/stAJ8nUHpWi.vPeBxvXf7C','ee','ee',_binary '','2024-08-05 18:37:36.438020'),(702,'lanita','$2a$10$LyQEBMmsfKjp6akk6m/hYucn.w53rRweQvIKRn4eyKCn2QQZFqq0W','Grant','Elizabeth',_binary '','2024-09-03 11:00:42.784552'),(703,'lanaza','$2a$10$vqZ0ceqcGlnajQnPja/cEegRamSK.WFwb4GJBPnoYZaNQBKiYkvVO','granto','Elizabeta',_binary '','2024-09-03 11:01:48.485632'),(802,'joji','$2a$10$Xl8BWBgfvIKekrKTWNnPZe6.t1MluNJpOGfSBmO1BgILF1WOzjo3C','Kusunoki','George',_binary '','2024-09-03 15:28:57.046485');
+INSERT INTO `users` VALUES (602,'onai','$2a$10$o/Ub590NRrP65OLqlDs8fuoaRm48aLe/8Fz0sM0Mi7H1pa.XxZTW2','campos','emi',_binary '','2024-08-05 18:28:06.179254'),(653,'zozo','$2a$10$v/MUAqeBp0qq1rUDSnUPQupKvFJAa/C4rfuqEmt1wQXOQ9SiQjDZq','s','e',_binary '','2024-08-05 18:36:52.417025'),(654,'onai1','$2a$10$G7urH1MFX5BAzk4G9N93TujgU5Sc8Z/stAJ8nUHpWi.vPeBxvXf7C','ee','ee',_binary '','2024-08-05 18:37:36.438020'),(702,'lanita','$2a$10$LyQEBMmsfKjp6akk6m/hYucn.w53rRweQvIKRn4eyKCn2QQZFqq0W','Grant','Elizabeth',_binary '','2024-09-03 11:00:42.784552'),(703,'lanaza','$2a$10$vqZ0ceqcGlnajQnPja/cEegRamSK.WFwb4GJBPnoYZaNQBKiYkvVO','granto','Elizabeta',_binary '','2024-09-03 11:01:48.485632'),(802,'joji','$2a$10$Xl8BWBgfvIKekrKTWNnPZe6.t1MluNJpOGfSBmO1BgILF1WOzjo3C','Kusunoki','George',_binary '','2024-09-03 15:28:57.046485'),(852,'bocateamo123','$2a$10$WgaiYjlf3RiNVlNxDgSbqeNUazbiIRlj4fYSZe8oz5AHDZTtZ3kla','santillan','julio',_binary '','2024-10-10 18:18:22.291107');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -304,8 +394,36 @@ CREATE TABLE `users_seq` (
 
 LOCK TABLES `users_seq` WRITE;
 /*!40000 ALTER TABLE `users_seq` DISABLE KEYS */;
-INSERT INTO `users_seq` VALUES (901);
+INSERT INTO `users_seq` VALUES (951);
 /*!40000 ALTER TABLE `users_seq` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `watchlist`
+--
+
+DROP TABLE IF EXISTS `watchlist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `watchlist` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `libro_id` bigint NOT NULL,
+  `user_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK48y31bqc2lxx56ig2b02eseaa` (`libro_id`),
+  KEY `FKden7i83qo2swnr5br4wgc5r7j` (`user_id`),
+  CONSTRAINT `FK48y31bqc2lxx56ig2b02eseaa` FOREIGN KEY (`libro_id`) REFERENCES `peliculas` (`id`),
+  CONSTRAINT `FKden7i83qo2swnr5br4wgc5r7j` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `watchlist`
+--
+
+LOCK TABLES `watchlist` WRITE;
+/*!40000 ALTER TABLE `watchlist` DISABLE KEYS */;
+/*!40000 ALTER TABLE `watchlist` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -317,4 +435,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-03 15:42:57
+-- Dump completed on 2024-10-12 11:32:56
