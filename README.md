@@ -1,13 +1,9 @@
-# Proyecto Final - Bootcamp Java Developer (educaciónIT) 🚀
-**¡Bienvenido/a a mi proyecto final para el curso del Bootcamp de Java Developer de educaciónIT!**
+# La Versión 1.3 ya llegó!
+**Recuperá tu contraseña de la manera más segura!**
 
-Este proyecto tiene como objetivo aplicar todos los conocimientos adquiridos durante el curso, integrando varias tecnologías y herramientas de desarrollo para crear una aplicación completa.
+Mediante tokens y tu correo electrónico vas a poder recuperar tu contraseña! Olvidate de perder tu cuenta y tus puntuaciones!
 
-### [Video del proyecto](https://drive.google.com/file/d/1dbpNMcsr8k6R22tYHJaIcD9cODK7GjZK/view?usp=sharing)
-Podés ver una demo del proyecto en el siguiente link.
+14/10
 
-### ¿Cómo ejecutar el programa?
-Usá el archivo **Integrador_Final_BDD.sql** que está en este repositorio para crear la base de datos.
-
-Abrí el proyecto en tu IDE favorito. Ejecutá la clase **Application** para iniciar la aplicación. ¡Y listo!
+Próximo a trabajar... Mejoraremos el funcionamiento de la cuenta y los comentarios! Nos vemos en la 1.4!
 
