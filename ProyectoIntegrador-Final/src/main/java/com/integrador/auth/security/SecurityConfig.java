@@ -34,6 +34,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(authRequest ->
                 authRequest
                     .requestMatchers("/auth/**",
+									"/reset-password.html",
 		                    		"/login",
 		                    		"/css/**",
 		                    		"/js/**",

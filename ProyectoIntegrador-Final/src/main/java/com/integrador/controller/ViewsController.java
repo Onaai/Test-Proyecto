@@ -105,4 +105,9 @@ public class ViewsController {
 		return "redirect:/pelicula/detalle/" + peliculaId;
 	}
 
+	@GetMapping("/reset-password.html")
+	public String resetPasswordView() {
+		return "reset-password"; // Nombre del archivo HTML en la carpeta templates sin extensión.
+	}
+
 }

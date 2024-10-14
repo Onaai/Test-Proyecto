@@ -82,3 +82,31 @@ function cerrarSesion() {
 function redirect(url) {
     window.location.href = url;
 }
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("forgotPasswordForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const email = document.getElementById("forgotEmail").value;
+
+        fetch("/auth/forgot-password", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success === "true") {
+                alert("Correo enviado con éxito.");
+                const modalElement = document.getElementById("forgotPasswordModal");
+                const modal = bootstrap.Modal.getInstance(modalElement);
+                modal.hide();
+            } else {
+                alert(data.message || "No se pudo enviar el correo.");
+            }
+        })
+        .catch(() => alert("Ocurrió un error. Intenta más tarde."));
+    });
+});
+

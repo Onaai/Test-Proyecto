@@ -140,3 +140,32 @@ html {
 .form-group label {
     font-weight: bold;
 }
+
+.links a {
+    color: #1e3c72;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.links a:hover {
+    text-decoration: underline;
+    color: #2a5298;
+}
+
+.links.forgot-password {
+    margin-top: 10px;
+    text-align: center;
+    background-color: yellow; /* Solo para pruebas */
+}
+
+.links.forgot-password a {
+    color: #1e3c72;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.links.forgot-password a:hover {
+    text-decoration: underline;
+    color: #2a5298;
+}
