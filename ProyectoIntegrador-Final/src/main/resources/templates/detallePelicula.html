@@ -36,8 +36,23 @@
             <div th:each="comentario : ${comentarios}">
                 <p><strong th:text="${comentario.user.username}"></strong> dijo:</p>
                 <p th:text="${comentario.texto}"></p>
+
+                <!-- Mostrar la cantidad de likes -->
+                <!--<p><span class="likes-count" th:text="${comentario.likes}">0</span> likes</p>-->
+
+                <!-- Botón de "Like" con data-id -->
+                <form id="like-form" th:action="@{/pelicula/comentario/like/{id}(id=${comentario.id})}" method="post">
+                    <button type="submit"
+                            th:class="${likesPorComentario[comentario.id] ? 'btn-unlike' : 'btn-like'}"
+                            th:text="${likesPorComentario[comentario.id] ? 'Unlike' : 'Like'}">
+                    </button>
+                    <p><span class="likes-count" th:text="${comentario.likes}"></span> likes</p>
+                </form>
+
                 <hr>
             </div>
+
+
 
             <!-- Formulario para puntuar con estrellas -->
             <!-- Formulario para puntuar con estrellas -->

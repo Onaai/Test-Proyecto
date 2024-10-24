@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function addPelicula() {
+    const token = localStorage.getItem('token'); // Modificación: Añadir token
     const titulo = document.getElementById("addTitulo").value;
     const sitio = document.getElementById("addSitio").value;
     const img = document.getElementById("addImg").value;
@@ -75,7 +76,8 @@ function addPelicula() {
     fetch('/pelicula/add', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token  // Modificación: Añadir token
         },
         body: JSON.stringify({
             titulo: titulo,
@@ -135,6 +137,7 @@ async function openDetailPelicula(id) {
 }
 
 function modifyPelicula() {
+    const token = localStorage.getItem('token'); // Modificación: Añadir token
     const idTexto = document.getElementById("modifyModalLabel").innerHTML;
     const inicio = idTexto.indexOf("(");
     const fin = idTexto.indexOf(")", inicio);
@@ -156,7 +159,8 @@ function modifyPelicula() {
     fetch('/pelicula/modify', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token  // Modificación: Añadir token
         },
         body: JSON.stringify({
             id: id,
@@ -179,10 +183,12 @@ function modifyPelicula() {
 }
 
 function deletePelicula(id) {
+    const token = localStorage.getItem('token'); // Modificación: Añadir token
     fetch('/pelicula/delete', {
         method: 'DELETE',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token  // Modificación: Añadir token
         },
         body: JSON.stringify({ id: id })
     })
@@ -252,6 +258,7 @@ async function armarCarrito() {
 }
 
 async function actualizarTotal() {
+    const token = localStorage.getItem('token'); // Modificación: Añadir token
     const codigo = document.getElementById("codigoCupon").value;
     const cuponTexto = document.getElementById("cuponTexto");
     const data = await getCupon(codigo);
@@ -268,11 +275,13 @@ async function actualizarTotal() {
 }
 
 async function getCupon(codigo) {
+    const token = localStorage.getItem('token'); // Modificación: Añadir token
     try {
         const response = await fetch('/cupon/get-cupon', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token  // Modificación: Añadir token
             },
             body: JSON.stringify({ codigo: codigo })
         });
@@ -288,11 +297,13 @@ async function getCupon(codigo) {
 }
 
 async function fetchPelicula(id) {
+    const token = localStorage.getItem('token');  // Modificación: Añadir token
     try {
         const response = await fetch('/pelicula/get-pelicula', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token  // Modificación: Añadir token
             },
             body: JSON.stringify({ id: id })
         });
@@ -319,6 +330,7 @@ function cancelarOrden() {
 }
 
 async function solicitarOrden() {
+    const token = localStorage.getItem('token'); // Modificación: Añadir token
     let carritoActual = JSON.parse(localStorage.getItem("carrito")) || [];
     const cartCounter = document.getElementById("cartCount").textContent;
 
@@ -329,7 +341,8 @@ async function solicitarOrden() {
             const response = await fetch('/orden/add', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token  // Modificación: Añadir token
                 },
                 body: JSON.stringify({
                     email: localStorage.getItem("usuarioActual"),
@@ -367,7 +380,8 @@ document.addEventListener('DOMContentLoaded', function () {
             fetch('/novedades/seen', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token  // Modificación: Añadir token
                 }
             }).then(response => {
                 if (response.ok) {
@@ -383,10 +397,16 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
+    const token = localStorage.getItem('token'); // Modificación: Añadir token
     let notificationCount = document.getElementById("notificationCount");
 
     // Llamar al endpoint para obtener el número de notificaciones no leídas
-    fetch('/notificaciones/contar').then(response => response.json())
+    fetch('/notificaciones/contar', {
+        headers: {
+            'Authorization': 'Bearer ' + token  // Modificación: Añadir token
+        }
+    })
+    .then(response => response.json())
     .then(data => {
         notificationCount.textContent = data.count; // Actualiza el contador con las notificaciones no leídas
     }).catch(error => {

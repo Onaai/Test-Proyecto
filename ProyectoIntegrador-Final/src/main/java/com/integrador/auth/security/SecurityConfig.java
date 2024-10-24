@@ -40,7 +40,9 @@ public class SecurityConfig {
 		                    		"/js/**",
 		                    		"/favicon.ico", 
 		                    		"/",
-		                    		"/home"
+		                    		"/home",
+						"/pelicula/comentario/like/**",
+								"/pelicula/comentario/like/{id}"
 		                    		).permitAll()
                     .requestMatchers("/ordenes").hasAnyRole("ADMIN")
                     .requestMatchers("/mis-ordenes").hasAnyRole("SOCIO")

@@ -28,4 +28,8 @@ public class Comentario {
     private Libro libro;
 
     private LocalDateTime fechaComentario;
+
+    @Column(nullable = false, columnDefinition = "int default 0")
+    private int likes;  // Nuevo campo de likes
+
 }

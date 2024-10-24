@@ -128,3 +128,34 @@ div p {
 .btn-leido-rojo {
     background-color: #E74C3C; /* Rojo */
 }
+
+/* Estilo general para ambos botones */
+.btn-like, .btn-unlike {
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;  /* Transición suave */
+    margin-right: 10px;
+}
+
+/* Estilo para el botón de "Like" */
+.btn-like {
+    background-color: #007bff; /* Color celeste */
+}
+
+.btn-like:hover {
+    background-color: #0056b3; /* Color celeste más oscuro al pasar el mouse */
+}
+
+/* Estilo para el botón de "Unlike" */
+.btn-unlike {
+    background-color: #dc3545; /* Color rojo */
+}
+
+.btn-unlike:hover {
+    background-color: #c82333; /* Color rojo más oscuro al pasar el mouse */
+}
+

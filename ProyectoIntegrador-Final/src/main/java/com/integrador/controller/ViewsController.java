@@ -1,8 +1,6 @@
 package com.integrador.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import com.integrador.entity.Comentario;
 import com.integrador.entity.Libro;
@@ -69,23 +67,31 @@ public class ViewsController {
 	}
 
 
-	// Mostrar detalles de la película (libro)
 	@GetMapping("/pelicula/detalle/{id}")
 	public String mostrarDetallePelicula(@PathVariable("id") Long id, Model model, @AuthenticationPrincipal User user) {
-		// Obtener la película por ID
+		// Obtener el libro por ID
 		Libro pelicula = libroService.findPeliculaByID(id);
 
 		if (pelicula != null) {
-			// Pasar la información de la película y los comentarios a la vista
+			// Obtener los comentarios del libro
 			List<Comentario> comentarios = comentarioService.getComentariosByLibro(pelicula);
 
 			if (comentarios == null) {
 				comentarios = new ArrayList<>();
 			}
 
-			// Añadir los comentarios y la película al modelo
+			// Crear un Map para almacenar si el usuario ha dado like a cada comentario
+			Map<Long, Boolean> likesPorComentario = new HashMap<>();
+
+			for (Comentario comentario : comentarios) {
+				boolean usuarioHaDadoLike = comentarioService.usuarioHaDadoLike(comentario, user);
+				likesPorComentario.put(comentario.getId(), usuarioHaDadoLike);
+			}
+
+			// Añadir los comentarios, el libro y los likes al modelo
 			model.addAttribute("pelicula", pelicula);
 			model.addAttribute("comentarios", comentarios);
+			model.addAttribute("likesPorComentario", likesPorComentario);
 
 			// Recuperar la puntuación del usuario si existe
 			Optional<Puntuacion> puntuacionOpt = puntuacionService.getPuntuacionByLibroAndUser(pelicula, user);
@@ -94,7 +100,7 @@ public class ViewsController {
 
 			return "detallePelicula";
 		} else {
-			// Si la película no se encuentra, redirigir a la página de inicio
+			// Si no se encuentra el libro, redirigir a la página de inicio
 			return "redirect:/home";
 		}
 	}
