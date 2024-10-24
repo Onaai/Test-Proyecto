@@ -59,6 +59,9 @@ public class User implements UserDetails {
         this.fecha_alta = LocalDateTime.now();
     }
 
+	@Column(name = "visto_novedades", nullable = false)
+	private boolean vistoNovedades = false;
+
 	@Column
 	private boolean activo;
 

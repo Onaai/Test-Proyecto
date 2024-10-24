@@ -8,16 +8,12 @@ import com.integrador.entity.Comentario;
 import com.integrador.entity.Libro;
 import com.integrador.entity.Puntuacion;
 import com.integrador.entity.User;
-import com.integrador.service.ComentarioService;
-import com.integrador.service.PuntuacionService;  // Importa el servicio de puntuación
+import com.integrador.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import com.integrador.service.GeneroService;
-import com.integrador.service.LibroService;
 
 @Controller
 public class ViewsController {
@@ -34,15 +30,22 @@ public class ViewsController {
 	@Autowired
 	private PuntuacionService puntuacionService;  // Inyecta el servicio de puntuación
 
+	@Autowired
+	private UserService userService;
+
 	@GetMapping(value = "/home")
-	public String misOrdenes(Model model) {
+	public String misOrdenes(Model model, @AuthenticationPrincipal User user) {
 		List<com.integrador.model.Libro> libros = libroService.findAllPeliculas();
 
 		model.addAttribute("peliculas", libros);
 		model.addAttribute("generos", generoService.findAllGeneros());
 
+		boolean hasSeenNovedades = userService.hasSeenNovedades(user);
+		model.addAttribute("hasSeenNovedades", hasSeenNovedades);
+
 		return "home";
 	}
+
 
 	@PostMapping(value = "/busqueda")
 	public String busquedaLibros(@RequestParam String busqueda, Model model) {
@@ -64,6 +67,7 @@ public class ViewsController {
 	public String ordenesAdmin() {
 		return "ordenesAdmin";
 	}
+
 
 	// Mostrar detalles de la película (libro)
 	@GetMapping("/pelicula/detalle/{id}")

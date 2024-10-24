@@ -44,7 +44,10 @@ public class Libro {
 	
 	@Column(name = "precio")
 	private double precio;
-	
+
+	@Column(name = "autor")
+	private String autor;
+
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(
 		name = "peliculas_genero", 

@@ -199,3 +199,59 @@ a {
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
 }
 
+
+.contenedor-peliculas {
+    display: flex;
+    justify-content: center; /* Centrará el contenedor de películas */
+    flex-wrap: wrap; /* Permite que las tarjetas se ajusten en múltiples filas */
+    gap: 20px; /* Espacio entre las tarjetas */
+    margin-top: 20px;
+}
+
+.contenedor-imagen {
+    width: 250px; /* Tamaño fijo para las tarjetas */
+    height: 400px; /* Tamaño fijo para las tarjetas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    border-radius: 10px; /* Bordes redondeados */
+    overflow: hidden;
+    position: relative;
+    background-color: white;
+}
+
+.informacion-pelicula {
+    padding: 10px;
+    text-align: center; /* Centra el contenido dentro de cada tarjeta */
+}
+
+.informacion-texto h2 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.informacion-detalles {
+    font-size: 0.9em;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+.notification-container {
+    position: relative;
+}
+
+.notification-icon {
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+}
+
+.notification-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    font-size: 12px;
+    padding: 3px 6px;
+    border-radius: 50%;
+}

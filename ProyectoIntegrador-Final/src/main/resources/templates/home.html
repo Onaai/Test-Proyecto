@@ -21,10 +21,14 @@
             <input id="busqueda" name="busqueda" class="form-control me-2" type="search" placeholder="Buscar película..." aria-label="Search">
             <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
         </form>
-        <div class="cart-container ms-3" th:if="${#authorization.expression('hasRole(''SOCIO'')')}">
-            <i class="fas fa-shopping-cart cart-icon" id="cartIcon"></i>
-            <span class="cart-count badge bg-danger" id="cartCount">0</span>
+
+
+        <!-- Campanita de notificaciones -->
+        <div class="notification-container ms-3">
+            <i class="fas fa-bell notification-icon" id="notificationIcon"></i>
+            <span class="notification-count badge bg-danger" id="notificationCount">0</span>
         </div>
+
         <button class="btn btn-outline-danger ms-2" onclick="cerrarSesion()">Cerrar sesión</button>
     </div>
 </nav>
@@ -70,8 +74,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>
 
@@ -208,6 +210,35 @@
         </div>
     </div>
 </div>
+
+<!-- MODAL DE NOVEDADES -->
+<div class="modal fade" id="novedadesModal" tabindex="-1" role="dialog" aria-labelledby="novedadesLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="novedadesLabel">Novedades de la versión</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Estas son las novedades de la nueva versión...
+
+                +Busqueda mejorada, por título y por autor.
+                +Fix.
+                +¡Panel de novedades!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="acceptNovedades">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<input type="hidden" id="hasSeenNovedades" th:value="${hasSeenNovedades}">
+
+
 
 <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>

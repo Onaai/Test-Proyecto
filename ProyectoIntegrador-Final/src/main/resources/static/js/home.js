@@ -352,3 +352,50 @@ async function solicitarOrden() {
         redirect("/home");
     }
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const hasSeenNovedades = document.getElementById('hasSeenNovedades').value;
+
+    // Si el usuario no ha visto las novedades, muestra el modal
+    if (hasSeenNovedades === "false") {
+        var novedadesModal = new bootstrap.Modal(document.getElementById("novedadesModal"));
+        novedadesModal.show();
+
+        // Cerrar modal cuando se hace clic en "Aceptar"
+        document.getElementById("acceptNovedades").addEventListener("click", function() {
+            // Llamamos al backend para marcar las novedades como vistas
+            fetch('/novedades/seen', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    novedadesModal.hide(); // Cierra el modal
+                } else {
+                    console.error("Error al marcar las novedades como vistas");
+                }
+            }).catch(error => {
+                console.error("Error:", error);
+            });
+        });
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    let notificationCount = document.getElementById("notificationCount");
+
+    // Llamar al endpoint para obtener el número de notificaciones no leídas
+    fetch('/notificaciones/contar').then(response => response.json())
+    .then(data => {
+        notificationCount.textContent = data.count; // Actualiza el contador con las notificaciones no leídas
+    }).catch(error => {
+        console.error("Error al obtener el conteo de notificaciones:", error);
+    });
+
+    // Puedes agregar un evento para mostrar las notificaciones al hacer clic en la campanita
+    document.getElementById("notificationIcon").addEventListener("click", function() {
+        // Aquí puedes abrir un modal o desplegar una lista de notificaciones
+        alert("Mostrar las notificaciones...");
+    });
+});

@@ -18,9 +18,12 @@ import com.integrador.repository.GeneroRepository;
 import com.integrador.repository.OrdenRepository;
 import com.integrador.repository.LibroRepository;
 import com.integrador.repository.PuntuacionRepository;
-
+import com.integrador.repository.LibroRepository;
 @Service
 public class LibroService {
+
+	@Autowired
+	private LibroRepository libroRepository; // Inyección del repositorio de libros
 
 	@Autowired
 	private LibroRepository peliculaRepository;
@@ -48,6 +51,17 @@ public class LibroService {
 		// Guardar la puntuación en la base de datos
 		puntuacionRepository.save(nuevaPuntuacion);
 	}
+
+	// Método para encontrar todos los libros
+	public List<Libro> findAllLibros() {
+		return peliculaRepository.findAll();
+	}
+
+	// Método para encontrar un libro por su ID
+	public Libro findById(Long id) {
+		return peliculaRepository.findById(id).orElseThrow(() -> new RuntimeException("Libro no encontrado"));
+	}
+
 
 	public void savePelicula(com.integrador.model.Libro request) {
 		Libro pelicula = new Libro();
@@ -118,7 +132,8 @@ public class LibroService {
 
 	public List<com.integrador.model.Libro> findPeliculasByString(String busqueda) {
 
-		List<Libro> peliculasEntity = peliculaRepository.findByTituloContaining(busqueda);
+		// Busca por título o autor
+		List<Libro> peliculasEntity = peliculaRepository.findByTituloOrAutor(busqueda);
 		List<com.integrador.model.Libro> peliculasModel = new ArrayList<>();
 
 		for (Libro p : peliculasEntity) {
@@ -126,8 +141,8 @@ public class LibroService {
 		}
 
 		return peliculasModel;
-
 	}
+
 
 	public void deletePeliculaById(Long id) {
 		Libro pelicula = peliculaRepository.findById(id).orElse(null);
