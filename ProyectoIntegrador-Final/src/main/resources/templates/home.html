@@ -27,7 +27,13 @@
         <div class="notification-container ms-3">
             <i class="fas fa-bell notification-icon" id="notificationIcon"></i>
             <span class="notification-count badge bg-danger" id="notificationCount">0</span>
+
+            <!-- Lista desplegable de notificaciones -->
+            <ul id="notificationList" class="notification-list" style="display: none; position: absolute; background-color: white; border: 1px solid #ddd; padding: 10px; list-style: none;">
+                <!-- Aquí se llenarán las notificaciones al hacer clic en la campanita -->
+            </ul>
         </div>
+
 
         <button class="btn btn-outline-danger ms-2" onclick="cerrarSesion()">Cerrar sesión</button>
     </div>

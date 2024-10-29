@@ -22,6 +22,9 @@ public class ComentarioService {
     @Autowired
     private ComentarioLikeRepository comentarioLikeRepository;
 
+    @Autowired
+    private NotificacionService notificacionService;
+
     public void agregarComentario(String texto, Libro libro, User user) {
         Comentario comentario = new Comentario();
         comentario.setTexto(texto);
@@ -63,6 +66,9 @@ public class ComentarioService {
             } else {
                 comentario.setLikes(comentario.getLikes() + 1);
                 comentarioLike.setLiked(true);
+                if (!comentario.getUser().getId().equals(user.getId())) {  // Verifica si no es el propio usuario
+                    notificacionService.notificarLike(comentario, user);  // Notificar al usuario que recibió el like
+                }
             }
         } else {
             ComentarioLike comentarioLike = new ComentarioLike();
@@ -71,6 +77,9 @@ public class ComentarioService {
             comentarioLike.setLiked(true);
             comentario.setLikes(comentario.getLikes() + 1);
             comentarioLikeRepository.save(comentarioLike);
+            if (!comentario.getUser().getId().equals(user.getId())) {  // Verifica si no es el propio usuario
+                notificacionService.notificarLike(comentario, user);  // Notificar al usuario que recibió el like
+            }
         }
         comentarioRepository.save(comentario);
         return true;  // Agregó el like

@@ -397,25 +397,67 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    const token = localStorage.getItem('token'); // Modificación: Añadir token
+    const token = localStorage.getItem('token');
     let notificationCount = document.getElementById("notificationCount");
+    let notificationList = document.getElementById("notificationList");
 
     // Llamar al endpoint para obtener el número de notificaciones no leídas
     fetch('/notificaciones/contar', {
         headers: {
-            'Authorization': 'Bearer ' + token  // Modificación: Añadir token
+            'Authorization': 'Bearer ' + token
         }
     })
     .then(response => response.json())
     .then(data => {
-        notificationCount.textContent = data.count; // Actualiza el contador con las notificaciones no leídas
+        notificationCount.textContent = data.count; // Actualiza el contador de notificaciones
     }).catch(error => {
         console.error("Error al obtener el conteo de notificaciones:", error);
     });
 
-    // Puedes agregar un evento para mostrar las notificaciones al hacer clic en la campanita
+    // Mostrar las notificaciones al hacer clic en el ícono de notificación
     document.getElementById("notificationIcon").addEventListener("click", function() {
-        // Aquí puedes abrir un modal o desplegar una lista de notificaciones
-        alert("Mostrar las notificaciones...");
+        // Alternar visibilidad de la lista de notificaciones
+        if (notificationList.style.display === "none") {
+            notificationList.style.display = "block";
+
+            // Marcar todas las notificaciones como leídas al hacer clic en la campanita
+            fetch('/notificaciones/marcar-como-leidas', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            })
+            .then(() => {
+                // Después de marcar las notificaciones como leídas, poner el contador a 0
+                notificationCount.textContent = '0';
+            })
+            .catch(error => {
+                console.error("Error al marcar las notificaciones como leídas:", error);
+            });
+
+            // Llamar al backend para obtener las notificaciones no leídas
+            fetch('/notificaciones', {
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                notificationList.innerHTML = '';  // Limpiar la lista de notificaciones
+                data.forEach(notificacion => {
+                    let listItem = document.createElement('li');
+                    listItem.textContent = notificacion.mensaje;  // Usamos el campo "mensaje" para mostrar la notificación
+                    notificationList.appendChild(listItem);  // Agregar la notificación a la lista
+                });
+            })
+            .catch(error => {
+                console.error("Error al obtener las notificaciones:", error);
+            });
+        } else {
+            notificationList.style.display = "none";
+        }
     });
 });
+
+
+
