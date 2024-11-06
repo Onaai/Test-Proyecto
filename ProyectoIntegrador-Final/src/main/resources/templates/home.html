@@ -78,7 +78,7 @@
                         <button th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:attr="onclick='openModifyPelicula(\'' + ${pelicula.id} + '\')'" class="btn btn-primary"><i class="fas fa-edit"></i></button>
                         <button th:if="${#authorization.expression('hasRole(''SOCIO'')')}" th:attr="onclick='openDetailPelicula(\'' + ${pelicula.id} + '\')'" class="btn btn-info"><i class="fas fa-eye"></i></button>
                         <button th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:attr="onclick='deletePelicula(\'' + ${pelicula.id} + '\')'" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                        <button th:if="${#authorization.expression('hasRole(''SOCIO'')')}" th:attr="onclick='addPeliculatoCart(\'' + ${pelicula.id} + '\')'" class="btn btn-success"><i class="fas fa-shopping-cart"></i></button>
+                        <!--<button th:if="${#authorization.expression('hasRole(''SOCIO'')')}" th:attr="onclick='addPeliculatoCart(\'' + ${pelicula.id} + '\')'" class="btn btn-success"><i class="fas fa-shopping-cart"></i></button>-->
                     </div>
                 </div>
             </div>
@@ -231,13 +231,15 @@
                 </button>
             </div>
             <div class="modal-body">
-                Estas son las novedades de la nueva versión...
-
-                +Busqueda mejorada, por título y por autor.
-                +Fix de errores.
-                +¡Panel de novedades!
-                +Notificaciones disponibles!
-                +Me gusta
+                 ¡Bienvenido a la versión de la presentación! (1.5.5) <br><br>
+                <ul style="list-style-type: none; padding: 0;">
+                    <li>🔍 <strong>Búsqueda mejorada</strong>: ahora podés buscar por título y por autor.</li>
+                    <li>🐞 <strong>Corrección de errores</strong>: solucionamos varios problemitass.</li>
+                    <li>📰 <strong>Nuevo Panel de Novedades</strong>: mantenete actualizado con las últimas funciones.</li>
+                    <li>🔔 <strong>Notificaciones</strong>: recibí notificaciones de tus comentarios de manera instantánea.</li>
+                    <li>❤️ <strong>Me gusta</strong>: dale un toque especial a tus comentarios favoritos.</li>
+                </ul>
+                ¡Esperamos que disfrutes las mejoras! 💖
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="acceptNovedades">Aceptar</button>

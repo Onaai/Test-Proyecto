@@ -34,13 +34,19 @@ public class ViewsController {
 
 	@GetMapping(value = "/home")
 	public String misOrdenes(Model model, @AuthenticationPrincipal User user) {
-		List<com.integrador.model.Libro> libros = libroService.findAllPeliculas();
+		// Asegúrate de que el usuario autenticado no sea nulo
+		if (user != null) {
+			List<com.integrador.model.Libro> libros = libroService.findAllPeliculas();
+			model.addAttribute("peliculas", libros);
+			model.addAttribute("generos", generoService.findAllGeneros());
 
-		model.addAttribute("peliculas", libros);
-		model.addAttribute("generos", generoService.findAllGeneros());
-
-		boolean hasSeenNovedades = userService.hasSeenNovedades(user);
-		model.addAttribute("hasSeenNovedades", hasSeenNovedades);
+			// Verificar si el usuario ha visto las novedades
+			boolean hasSeenNovedades = userService.hasSeenNovedades(user);
+			model.addAttribute("hasSeenNovedades", hasSeenNovedades);
+		} else {
+			// Manejar el caso en que el usuario sea nulo (opcional)
+			model.addAttribute("hasSeenNovedades", true); // O cualquier valor por defecto
+		}
 
 		return "home";
 	}
