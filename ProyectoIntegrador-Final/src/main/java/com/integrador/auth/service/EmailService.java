@@ -20,8 +20,8 @@ public class EmailService {
                 MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
                 helper.setTo(toEmail);
-                helper.setSubject("Restablecer Contraseña");
-                helper.setText("<p>Haz clic en el siguiente enlace para restablecer tu contraseña:</p>"
+                helper.setSubject("Restablecer Contraseña - Biblioteca Web");
+                helper.setText("<p>Nos enteramos que querés recuperar tu contraseña! Hacé clic en el siguiente enlace para restablecer tu contraseña:</p>"
                         + "<a href=\"" + resetUrl + "\">Restablecer contraseña</a>", true);
 
                 mailSender.send(message);

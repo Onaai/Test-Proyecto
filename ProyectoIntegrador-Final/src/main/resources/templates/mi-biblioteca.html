@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La biblioteca de [[${usuarioNombre}]]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Fondo general de la página */
+        body {
+            background-color: #F5F5DC; /* Beige */
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        a:link, a:visited {
+        color: inherit; /* Mantiene el color original del texto */
+        text-decoration: none; /* Elimina el subrayado */
+        }
+
+        /* Título de la biblioteca */
+        .title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        /* Contenedor de libros */
+        .book-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* Estilos para los libros puntuados */
+        .book.puntuado {
+            background-color: #B0E0E6; /* Azulado */
+            padding: 15px;
+            border-radius: 8px;
+            width: 200px;
+            text-align: center;
+            cursor: pointer; /* Indica que la tarjeta es interactiva */
+        }
+
+        /* Estilos para los libros no puntuados */
+        .book.no-puntuado {
+            background-color: #D3D3D3; /* Gris */
+            padding: 15px;
+            border-radius: 8px;
+            width: 200px;
+            text-align: center;
+            display: none; /* Oculta los no puntuados inicialmente */
+            cursor: pointer; /* Indica que la tarjeta es interactiva */
+        }
+
+        /* Imagen de la portada */
+        .book img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        /* Enlace para volver al inicio */
+        .back-to-home {
+            margin-bottom: 20px;
+            display: inline-block;
+            text-decoration: none;
+            font-weight: bold;
+            color: #F5F5DC; /* Beige */
+            background-color: #2C3E50; /* Azul oscuro */
+            padding: 8px 15px;
+            border-radius: 4px;
+        }
+        .back-to-home:hover {
+            background-color: #34495E; /* Un tono más claro de azul oscuro */
+        }
+
+        /* Botón de filtro pequeño y alineado a la derecha */
+        .filter-btn {
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #333;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: auto;
+            display: block;
+            margin-bottom: 20px;
+            background-color: #D3D3D3; /* Gris inicial */
+        }
+        .filter-btn.ver-solo-puntuados {
+            background-color: #B0E0E6; /* Celeste cuando muestra solo puntuados */
+        }
+    </style>
+    <script>
+        // JavaScript para alternar la visualización de libros no puntuados y cambiar el estado del botón
+        function toggleNonRated() {
+            const nonRatedBooks = document.querySelectorAll('.book.no-puntuado');
+            const filterBtn = document.getElementById('filter-btn');
+            const showingNonRated = filterBtn.classList.toggle('ver-solo-puntuados');
+
+            nonRatedBooks.forEach(book => {
+                book.style.display = showingNonRated ? 'none' : 'block';
+            });
+
+            // Cambia el texto y color del botón según el estado
+            filterBtn.textContent = showingNonRated ? "Ver no puntuados" : "Ver solo puntuados";
+        }
+    </script>
+</head>
+<body>
+
+<a href="/home" class="back-to-home">Volver al inicio</a>
+
+<!-- Título de la biblioteca -->
+<h1 class="title">La biblioteca de <span th:text="${usuarioNombre}">Usuario</span> ✨</h1>
+
+<!-- Botón para ver no puntuados, alineado a la derecha y pequeño -->
+<div style="text-align: right;">
+    <button id="filter-btn" class="filter-btn ver-solo-puntuados" onclick="toggleNonRated()">Ver no puntuados</button>
+</div>
+
+<div class="book-container">
+    <!-- Recorre los libros y aplica la clase en función de si están puntuados -->
+    <th:block th:each="libro : ${libros}">
+        <a th:href="@{/pelicula/detalle/{id}(id=${libro.id})}" class="book-link">
+        <div th:class="${puntuacionesPromedio[libro.id] != null} ? 'book puntuado' : 'book no-puntuado'"
+             th:onclick="window.location.href='/pelicula/detalle/' + ${libro.id}">
+            <img th:src="${libro.img}" th:alt="${libro.titulo}" />
+            <h2 th:text="${libro.titulo}">Título del Libro</h2>
+            <p th:text="${libro.autor != null ? libro.autor : 'Sin autor'}">Autor del Libro</p>
+            <p th:text="${puntuacionesPromedio[libro.id] != null ? 'Puntuación: ' + puntuacionesPromedio[libro.id] : 'Sin puntuación'}">Puntuación</p>
+        </div>
+        </a>
+    </th:block>
+</div>
+
+</body>
+</html>

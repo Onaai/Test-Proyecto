@@ -161,4 +161,9 @@ public class LibroService {
 
 	}
 
+	public List<Libro> obtenerLibros() {
+		// Devuelve todos los libros en la base de datos
+		return libroRepository.findAll();
+	}
+
 }

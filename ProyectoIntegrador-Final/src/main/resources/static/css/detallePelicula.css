@@ -159,3 +159,23 @@ div p {
     background-color: #c82333; /* Color rojo más oscuro al pasar el mouse */
 }
 
+/* Estilos para el botón de "Volver al inicio" */
+.btn-back-home {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: #2C3E50;
+    color: #F5F5DC; /* Color beige */
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-back-home:hover {
+    background-color: #C7C7C7;
+    transform: scale(1.05);
+}

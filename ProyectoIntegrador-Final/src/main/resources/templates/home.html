@@ -10,15 +10,18 @@
 <body>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Peliculas</a>
+        <a class="navbar-brand" href="#">Libros</a>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item"><a class="nav-link" href="home">HOME</a></li>
             <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="nav-item"><a class="nav-link" href="#" onclick="showModal('addPeliculaModal')">ALTA PELICULA</a></li>
-            <li th:if="${#authorization.expression('hasRole(''SOCIO'')')}" class="nav-item"><a class="nav-link" href="mis-ordenes">MIS ÓRDENES</a></li>
+            <li th:if="${#authorization.expression('hasRole(''SOCIO'')')}" class="nav-item">
+                <a class="nav-link" href="/mi-biblioteca">MI BIBLIOTECA</a>
+            </li>
+
             <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="nav-item"><a class="nav-link" href="ordenes">ÓRDENES</a></li>
         </ul>
         <form action="/busqueda" method="post" class="d-flex">
-            <input id="busqueda" name="busqueda" class="form-control me-2" type="search" placeholder="Buscar película..." aria-label="Search">
+            <input id="busqueda" name="busqueda" class="form-control me-2" type="search" placeholder="Buscar por libro o autor..." aria-label="Search">
             <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
         </form>
 
@@ -231,8 +234,10 @@
                 Estas son las novedades de la nueva versión...
 
                 +Busqueda mejorada, por título y por autor.
-                +Fix.
+                +Fix de errores.
                 +¡Panel de novedades!
+                +Notificaciones disponibles!
+                +Me gusta
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="acceptNovedades">Aceptar</button>

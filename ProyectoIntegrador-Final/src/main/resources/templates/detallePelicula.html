@@ -9,14 +9,25 @@
 </head>
 <body>
 
+
+<a href="/home" class="btn-back-home">Volver al inicio</a>
+
 <div class="container mt-5">
+
     <div class="row">
         <div class="col-md-6">
             <img th:src="${pelicula.img}" class="img-fluid" alt="Imagen de la Película">
         </div>
         <div class="col-md-6">
             <h2 th:text="${pelicula.titulo}"></h2>
-            <p th:text="'Géneros: ' + ${#strings.arrayJoin(pelicula.generos, ', ')}"></p>
+            <p>Géneros:
+                <span th:each="genero, iterStat : ${pelicula.generos}">
+        <span th:text="${genero.genero}"></span>
+        <span th:if="${!iterStat.last}">, </span>
+    </span>
+            </p>
+            </p>
+            </p>
             <p th:text="'Precio: $' + ${pelicula.precio}"></p>
 
             <!-- Agregar un formulario para los comentarios -->

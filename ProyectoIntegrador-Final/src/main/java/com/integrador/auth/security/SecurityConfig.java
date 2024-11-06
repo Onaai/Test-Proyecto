@@ -38,7 +38,7 @@ public class SecurityConfig {
 		                    		"/login",
 		                    		"/css/**",
 		                    		"/js/**",
-		                    		"/favicon.ico", 
+                            "/static/favicon.ico",
 		                    		"/",
 		                    		"/home",
 						"/pelicula/comentario/like/**",

@@ -9,6 +9,7 @@ import com.integrador.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -51,5 +52,17 @@ public class PuntuacionService {
     // Obtener la puntuación de un libro por parte de un usuario
     public Optional<Puntuacion> getPuntuacionByLibroAndUser(Libro libro, User user) {
         return puntuacionRepository.findByLibroAndUser(libro, user);
+    }
+
+    public List<Puntuacion> getPuntuacionesByUser(User user) {
+        return puntuacionRepository.findByUser(user);
+    }
+
+    public double obtenerPuntuacionPromedioPorLibro(Long libroId) {
+        List<Puntuacion> puntuaciones = puntuacionRepository.findByLibroId(libroId);
+        return puntuaciones.stream()
+                .mapToInt(Puntuacion::getPuntuacion)
+                .average()
+                .orElse(0.0); // Retorna 0 si no hay puntuaciones
     }
 }

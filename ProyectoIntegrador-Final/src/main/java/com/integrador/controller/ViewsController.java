@@ -1,6 +1,7 @@
 package com.integrador.controller;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.integrador.entity.Comentario;
 import com.integrador.entity.Libro;
@@ -119,5 +120,34 @@ public class ViewsController {
 	public String resetPasswordView() {
 		return "reset-password"; // Nombre del archivo HTML en la carpeta templates sin extensión.
 	}
+
+
+
+
+	@GetMapping("/mi-biblioteca")
+	public String mostrarBiblioteca(Model model, @AuthenticationPrincipal User user) {
+		List<Libro> libros = libroService.obtenerLibros();
+
+		// Ordena los libros: primero los puntuados, luego por autor (y los sin autor al final)
+		libros.sort(Comparator.comparing((Libro libro) ->
+						puntuacionService.getPuntuacionByLibroAndUser(libro, user).isPresent() ? 0 : 1)
+				.thenComparing(libro -> libro.getAutor() != null ? libro.getAutor().toLowerCase() : "zzz"));
+
+		Map<Long, Integer> puntuaciones = new HashMap<>();
+		for (Libro libro : libros) {
+			Optional<Puntuacion> puntuacionOpt = puntuacionService.getPuntuacionByLibroAndUser(libro, user);
+			puntuaciones.put(libro.getId(), puntuacionOpt.map(Puntuacion::getPuntuacion).orElse(null));
+		}
+
+		model.addAttribute("libros", libros);
+		model.addAttribute("puntuacionesPromedio", puntuaciones);
+		model.addAttribute("usuarioNombre", user.getUsername());
+		return "mi-biblioteca";
+	}
+
+
+
+
+
 
 }
