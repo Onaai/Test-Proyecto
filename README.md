@@ -1,13 +1,12 @@
-# Proyecto Final - Bootcamp Java Developer (educaciónIT) 🚀
-**¡Bienvenido/a a mi proyecto final para el curso del Bootcamp de Java Developer de educaciónIT!**
+# Branch con el código listo para ser presentado!
 
-Este proyecto tiene como objetivo aplicar todos los conocimientos adquiridos durante el curso, integrando varias tecnologías y herramientas de desarrollo para crear una aplicación completa.
 
-### [Video del proyecto](https://drive.google.com/file/d/1dbpNMcsr8k6R22tYHJaIcD9cODK7GjZK/view?usp=sharing)
-Podés ver una demo del proyecto en el siguiente link.
+**Aclaraciones**
 
-### ¿Cómo ejecutar el programa?
-Usá el archivo **Integrador_Final_BDD.sql** que está en este repositorio para crear la base de datos.
+Proyecto con detalles corregidos y revisado. Listo para su revisión y calificación.
 
-Abrí el proyecto en tu IDE favorito. Ejecutá la clase **Application** para iniciar la aplicación. ¡Y listo!
+**Declaraciones**
 
+Último proyecto, fin de año, commit que realizo el 05/11 un camino recorrido muy bello, con muchos commits detrás demostrando el avance de este proyecto tan lindo que buscó replicar aquello que tanto me gusta leer. 
+Gracias a Chatgpt por resolver dudas y muchas gracias a MacdeMarco porque su música me acompañó en absolutamente todo, en aquellos días salados donde no podía avanzar. Espero el proyecto agrade y sea disfrutado tanto como para mi fue hacerlo.
+Agradecerle a MacDeMarco una vez más porque su música fue aquello en lo que pude ocultar mi frustración y estrés por la entrega de este proyecto, finalmente ya está hecho. Gracias por todo, espero recordar este día y estos días que finalmente parecen ser más dulces.
